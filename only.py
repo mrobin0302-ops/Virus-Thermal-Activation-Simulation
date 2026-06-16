@@ -1,29 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# --- Paramètres du modèle ---
+#  Paramètres du modèle 
 T_inf = 37          # température d'équilibre (°C)
 T0 = 3              # température initiale (°C)
 k = 0.48            # constante (h⁻¹)
 T_target = 36.9     # température à atteindre (°C)
 
-# --- Données expérimentales ---
+#  Données expérimentales 
 t_exp = np.array([0, 1, 2, 3, 4])
 T_exp = np.array([3, 16, 24, 28.5, 30])
 
-# --- Modèle exponentiel ---
+#  Modèle exponentiel 
 def T(t):
     return T_inf - (T_inf - T0) * np.exp(-k * t) - 100/(1+np.exp(-5*(t-28)))
 
-# --- Calcul du temps pour atteindre 36.9 °C ---
+#  Calcul du temps pour atteindre 36.9 °C
 t_target = -np.log((T_inf - T_target) / (T_inf - T0)) / k
 print(f"Temps pour atteindre {T_target} °C : {t_target:.2f} heures")
 
-# --- Simulation sur un intervalle de 0 à 13 h ---
+# Simulation sur un intervalle de 0 à 13 h 
 t_vals = np.linspace(0, 13, 300)
 T_vals = T(t_vals)
 
-# --- Tracé ---
+#  Tracé 
 plt.figure(figsize=(8,5))
 
 # Courbe du modèle (pointillé)
@@ -49,4 +49,5 @@ plt.xlim(-0.2, 13)
 plt.ylim(0, 38)
 plt.legend()
 plt.grid(True)
+plt.savefig('graphique.png')
 plt.show()
